@@ -4,20 +4,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ToDo App</title>
-  <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet">
-  <link href="/styles.css" rel="stylesheet">
-  </head>
+  <title>ToDo List App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h2> A Simple ToDo List App </h2>
-    <form action="/addtask" method="POST">
-      <input type="text" name="newtask" placeholder="add new task"> <button> Add Task </button>
-      <h2> Added Task </h2>
-      <button formaction="/removetask" type="submit"> Remove </button>
-    </form>
-    <h2> Completed task </h2>
-  </div>
+  <h1>A Simple ToDo List App</h1>
+  <form action="/addtask" method="POST">
+    <input type="text" name="newtask" placeholder="add new task">
+    <button> Add Task </button>
+  </form>
+  <h2> Completed task </h2>
 </body>
 </html>
