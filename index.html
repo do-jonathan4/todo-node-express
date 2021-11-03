@@ -8,11 +8,14 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>A Simple ToDo List App</h1>
-  <form action="/addtask" method="POST">
-    <input type="text" name="newtask" placeholder="add new task">
-    <button> Add Task </button>
+  <h1>ToDo List App</h1>
+  <form id="form">
+    <input type="text" name="text" id="item" placeholder="add new task">
+    <input type="submit">Add Task</input>
   </form>
-  <h2> Completed task </h2>
+
+  <div id="list"></div>
+
+  <script src="main.js"></script>
 </body>
 </html>
