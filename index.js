@@ -18,8 +18,12 @@ app.get('/getItems', (req, res) => {
   res.json(data)
 })
 
-app.post('/addItem', (req, res) => {
+app.post('/', (req, res) => {
   data.push(req.body.text)
+})
+app.delete('/:id', (req, res) => {
+  const i = req.params.id
+  data.splice(i, 1)
 })
 
 app.listen(process.env.PORT, () => {

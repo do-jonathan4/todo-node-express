@@ -3,7 +3,8 @@ const input = document.getElementById("item")
 const list = document.getElementById("list")
 let items = []
 
-form.addEventListener('submit', addTask)
+form.addEventListener('submit', postTask)
+list.addEventListener('click', delTask)
 
 window.onload = event => {
   fetch('/getItems')
@@ -13,9 +14,9 @@ window.onload = event => {
     .catch(err => console.log(err))
 };
 
-function addTask(event) {
+function postTask(event) {
   event.preventDefault()
-  fetch('/addItem', {
+  fetch('/', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
@@ -24,8 +25,21 @@ function addTask(event) {
   })
     .then(res => res.json())
     .catch(err => console.log(err))
-  appendTask(input.value)
+  addTask(input.value)
   form.reset()
+}
+function delTask(event) {
+  event.preventDefault()
+  const index = items.indexOf(event.target.textContent)
+  fetch('/'+index, {
+    method: 'delete',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err))
+  removeTask(index)
 }
 
 function showTasks() {
@@ -33,9 +47,12 @@ function showTasks() {
     list.innerHTML += `<li>${x}</li>`
   })
 }
-function appendTask(item) {
+function addTask(item) {
   items.push(item)
   const li = document.createElement('li')
   li.innerText = item
   list.append(li)
+}
+function removeTask(i) {
+  items.splice(i, 1)
 }
