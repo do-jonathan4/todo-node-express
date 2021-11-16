@@ -1,4 +1,4 @@
-const form = document.getElementById("form")
+const form = document.querySelector("form")
 const input = document.getElementById("item")
 const list = document.getElementById("list")
 let items = []
@@ -13,8 +13,8 @@ window.onload = event => {
     .then(showTasks)
     .catch(err => console.log(err))
 };
-
 function postTask(event) {
+  if (input.value === '') return
   event.preventDefault()
   fetch('/', {
     method: 'post',
@@ -25,6 +25,7 @@ function postTask(event) {
   })
     .then(res => res.json())
     .catch(err => console.log(err))
+
   addTask(input.value)
   form.reset()
 }
@@ -48,11 +49,9 @@ function showTasks() {
   })
 }
 function addTask(item) {
-  items.push(item)
-  const li = document.createElement('li')
-  li.innerText = item
+  const li = document.createElement('li').innerText = item
   list.append(li)
 }
 function removeTask(i) {
-  items.splice(i, 1)
+  list.removeChild(list.childNodes[i])
 }
