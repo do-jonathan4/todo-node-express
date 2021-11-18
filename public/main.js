@@ -45,13 +45,17 @@ function delTask(event) {
 
 function showTasks() {
   items.forEach(x => {
-    list.innerHTML += `<li>${x}</li>`
+    list.innerHTML += `<p class="bg-secondary rounded p-2 text-white">${x}</p>`
   })
 }
 function addTask(item) {
-  const li = document.createElement('li').innerText = item
-  list.append(li)
+  items.push(item)
+  const p = document.createElement('p')
+  p.className = 'bg-secondary rounded p-2 text-white'
+  p.innerText = item
+  list.appendChild(p)
 }
 function removeTask(i) {
+  items.splice(i, 1)
   list.removeChild(list.childNodes[i])
 }
