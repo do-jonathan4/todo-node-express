@@ -1,9 +1,10 @@
-const form = document.getElementById("form")
+const form = document.querySelector("form")
 const input = document.getElementById("item")
 const list = document.getElementById("list")
 let items = []
 
-form.addEventListener('submit', addTask)
+form.addEventListener('submit', postTask)
+list.addEventListener('click', delTask)
 
 window.onload = event => {
   fetch('/getItems')
@@ -12,10 +13,10 @@ window.onload = event => {
     .then(showTasks)
     .catch(err => console.log(err))
 };
-
-function addTask(event) {
+function postTask(event) {
+  if (input.value === '') return
   event.preventDefault()
-  fetch('/addItem', {
+  fetch('/', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
@@ -24,18 +25,37 @@ function addTask(event) {
   })
     .then(res => res.json())
     .catch(err => console.log(err))
-  appendTask(input.value)
+
+  addTask(input.value)
   form.reset()
+}
+function delTask(event) {
+  event.preventDefault()
+  const index = items.indexOf(event.target.textContent)
+  fetch('/'+index, {
+    method: 'delete',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err))
+  removeTask(index)
 }
 
 function showTasks() {
   items.forEach(x => {
-    list.innerHTML += `<li>${x}</li>`
+    list.innerHTML += `<p class="bg-secondary rounded p-2 text-white">${x}</p>`
   })
 }
-function appendTask(item) {
+function addTask(item) {
   items.push(item)
-  const li = document.createElement('li')
-  li.innerText = item
-  list.append(li)
+  const p = document.createElement('p')
+  p.className = 'bg-secondary rounded p-2 text-white'
+  p.innerText = item
+  list.appendChild(p)
+}
+function removeTask(i) {
+  items.splice(i, 1)
+  list.removeChild(list.childNodes[i])
 }
